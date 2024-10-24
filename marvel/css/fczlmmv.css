@@ -1,0 +1,75 @@
+.clearfix:after {
+    content: "";
+    display: block;
+    visibility: hidden;
+    height: 0;
+    clear: both;
+}
+
+.ps {
+    padding: 0 220px;
+}
+
+.content__item--wide {
+    position: static!important;
+}
+
+.content__item--wide:hover .absl,
+.content__item--wide:hover .absr{
+    cursor: pointer;
+    display: block;
+}
+.l {
+    float: left;
+}
+
+.r {
+    float: right;
+}
+
+.mvifm-l, .mvifm-r {
+    width: 400px;
+    height: auto;
+    background-color: rgba(0, 0, 0, 0.7)!important;
+    padding: 10px;
+    border-radius: 25px;
+    float: left;
+    margin-left: 50px;
+    color: white;
+}
+
+.mvifm-r {
+    float: right;
+    margin-right: 50px;
+}
+
+body {
+    background: url(../img/jbg.jpg);
+    background-attachment: fixed;
+}
+
+.ps {
+    position: relative;
+    left: 0;
+    top: 0;
+}
+
+.absl, .absr {
+    display: none;
+    position: absolute;
+    top: 0;
+    text-align: center;
+    line-height: 700px;
+    width: 943px;
+    height: 500px;
+    background-color: rgba(0, 0, 0, 0.5);
+    opacity: 0.8;
+}
+
+.absl {
+    left: 0!important;
+}
+
+.absr {
+    right: 0!important;
+}

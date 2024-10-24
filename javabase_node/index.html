@@ -1,0 +1,1369 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+    <meta http-equiv="Pragma" content="no-cache"/>
+    <meta http-equiv="Expires" content="0"/>
+
+    <title>zzl的JavaNote</title>
+
+    <link rel="shortcut icon" href="ico/zzl.ico">
+
+    <link rel="stylesheet" href="css/markdown.css"/>
+
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://www.jq22.com/jquery/font-awesome.4.6.0.css">
+    <link rel="stylesheet" href="css/pageTurning.css">
+    <link rel="stylesheet" href="css/custom.min.css"/>
+
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+        }
+
+        body,
+        html {
+            width: 100%;
+            height: 100%;
+            background-image: url(img/bgc.jpg);
+            background-position: bottom right;
+            background-attachment: fixed;
+            background-size: 100%;
+            background-repeat: no-repeat;
+        }
+
+        .contentLeft {
+            float: left;
+            width: 15%;
+            height: 100%;
+            background: black;
+            opacity: 0.7;
+        }
+
+        .contentRight {
+            float: left;
+            width: 85%;
+        }
+    </style>
+</head>
+<body>
+<div class="contentLeft" style="position: fixed; top: 0; right: 0;">
+    <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
+        <ul class="nav side-menu" id="navmenu"></ul>
+    </div>
+</div>
+<div class="contentRight">
+    <div class="right_col" role="main" id="rightContent">
+        <article class="markdown-body">
+            <h1>D5M9</h1>
+            <br/>
+            <h3 class="a0_0">JDK、JRE、JVM的关系</h3>
+            <p>JDK：Java开发工具包，是最小的Java开发环境</p>
+            <p>JRE：最小Java程序运行时环境，只能运行.class文件，不能编译</p>
+            <p>JVM：Java虚拟机、是Java语言跨平台的核心</p>
+            <p>JDK=JRE+Java基础类库</p>
+            <p>JRE=JVM+Java核心类库</p>
+            <br/>
+            <h3 class="a0_1">梦开始的地方</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>public</span> <span
+                    class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>main</span>(<span
+                    class='ace_support ace_function'>String</span>[] <span class='ace_identifier'>args</span>){
+</div><div class='ace_line'>  <span class='ace_support ace_function'>System</span>.<span
+                    class='ace_identifier'>out</span>.<span class='ace_identifier'>println</span>(<span
+                    class='ace_string'>&#34;Hello World!&#34;</span>);
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a0_2">变量的分类（按数据类型）</h3>
+            <p>基本数据类型：<u>byte、short、int、long（数值型）</u>、<u>float、double（浮点型）</u>、<u>char（字符型）</u>、<u>boolean（布尔型）</u></p>
+            <p>引用数据类型：class、interface、[ ]</p>
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align:center">类型</th>
+                    <th style="text-align:center">byte</th>
+                    <th style="text-align:center">short</th>
+                    <th style="text-align:center">int</th>
+                    <th style="text-align:center">long</th>
+                    <th style="text-align:center">float</th>
+                    <th style="text-align:center">double</th>
+                    <th style="text-align:center">char</th>
+                    <th style="text-align:center">boolean</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align:center">字节</td>
+                    <td style="text-align:center">1</td>
+                    <td style="text-align:center">2</td>
+                    <td style="text-align:center">4</td>
+                    <td style="text-align:center">8</td>
+                    <td style="text-align:center">4</td>
+                    <td style="text-align:center">8</td>
+                    <td style="text-align:center">2</td>
+                    <td style="text-align:center">1</td>
+                </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li>Java整形常量默认为int型，声明long型后需加‘l’或‘L’</li>
+                <li>Java浮点型常量默认为double型，声明float型常量后需加‘f’或‘F’</li>
+                <li>自动类型提升规则：当容量小的变量和容量大的变量做运算时，结果自动提升为容量大的数据类型，容量大是指范围大小，不是字节大小
+                    <ul>
+                        <li>byte、char、short --&gt; int --&gt; long --&gt; float --&gt; double</li>
+                        <li>当byte、short、char三种变量做运算时，结果为int型</li>
+                    </ul>
+                </li>
+                <li>强制类型转换：自动类型提升的逆运算</li>
+            </ul>
+            <br/>
+            <h3 class="a0_3">运算符：位运算符</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align:left">&lt;&lt;</th>
+                    <th style="text-align:left">空位补0，被移除的高位丢弃，空缺位补0</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align:left">&gt;&gt;</td>
+                    <td style="text-align:left">被移位的二进制最高位是0，右移后，空缺位补0；最高位是1，空缺位补1</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">&gt;&gt;&gt;</td>
+                    <td style="text-align:left">被移位的二进制的最高位无论是0或者是1，空缺位都用0补</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">&amp;</td>
+                    <td style="text-align:left">只有1&amp;1为1，其余为0</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">|</td>
+                    <td style="text-align:left">只有0|0为0，其余为1</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">^</td>
+                    <td style="text-align:left">相同为1，不同为0</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">~</td>
+                    <td style="text-align:left">按二进制补码取反</td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <h3 class="a0_4">运算符的优先级</h3>
+            <p>
+                <mark>只有单目运算符、三元运算符、赋值运算符是从右往左运算的</mark>
+            </p>
+            <p><strong>单目 --&gt; 算术 --&gt; 移位（位运算符） --&gt; 逻辑 --&gt; 按位（位运算符） --&gt; 逻辑与或 --&gt; 三目 --&gt; 赋值</strong>
+            </p>
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align:left">优先级</th>
+                    <th style="text-align:left">运算符</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align:left">1</td>
+                    <td style="text-align:left">()、[]、{}</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">2</td>
+                    <td style="text-align:left">!、+、-、~、++、--</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">3</td>
+                    <td style="text-align:left">*、/、%</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">4</td>
+                    <td style="text-align:left">+、-</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">5</td>
+                    <td style="text-align:left">&lt;&lt;、&gt;&gt;、&gt;&gt;&gt;</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">6</td>
+                    <td style="text-align:left">&lt;、&lt;=、&gt;、&gt;=、instanceof</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">7</td>
+                    <td style="text-align:left">==、!=</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">8</td>
+                    <td style="text-align:left">&amp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">9</td>
+                    <td style="text-align:left">^</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">10</td>
+                    <td style="text-align:left">|</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">11</td>
+                    <td style="text-align:left">&amp;&amp;</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">12</td>
+                    <td style="text-align:left">|</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">13</td>
+                    <td style="text-align:left">?:</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">14</td>
+                    <td style="text-align:left">=、+=、-=、*=、/=、&amp;=、|=、^=、~=、&lt;&lt;=、&gt;&gt;=、&gt;&gt;&gt;=</td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <h3 class="a0_5">Scanner类的使用</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>import</span> <span
+                    class='ace_identifier'>java</span>.<span
+                    class='ace_identifier'>util</span>.<span class='ace_identifier'>Scanner</span>;
+</div><div class='ace_line'>
+</div><div class='ace_line'><span class='ace_keyword'>class</span> <span class='ace_identifier'>Demo</span>{
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>main</span>(<span
+                    class='ace_support ace_function'>String</span>[] <span class='ace_identifier'>args</span>){
+</div><div class='ace_line'>    <span class='ace_identifier'>Scanner</span> <span class='ace_identifier'>sc</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_identifier'>Scanner</span>(<span
+                    class='ace_support ace_function'>System</span>.<span class='ace_identifier'>in</span>);
+</div><div class='ace_line'>    <span class='ace_support ace_function'>String</span> <span
+                    class='ace_identifier'>s</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_identifier'>sc</span>.<span class='ace_identifier'>next</span>();
+</div><div class='ace_line'>    <span class='ace_keyword'>char</span> <span class='ace_identifier'>c</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>sc</span>.<span
+                    class='ace_identifier'>next</span>().<span class='ace_identifier'>charAt</span>(<span
+                    class='ace_constant ace_numeric'>0</span>);
+</div><div class='ace_line'>    <span class='ace_keyword'>int</span> <span class='ace_identifier'>num1</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>sc</span>.<span
+                    class='ace_identifier'>nextInt</span>();
+</div><div class='ace_line'>    <span class='ace_keyword'>int</span> <span class='ace_identifier'>num2</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>sc</span>.<span
+                    class='ace_identifier'>nextDouble</span>();
+</div><div class='ace_line'>    <span class='ace_keyword'>int</span> <span class='ace_identifier'>num3</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>sc</span>.<span
+                    class='ace_identifier'>nextBoolean</span>();
+</div><div class='ace_line'>  }
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <p>
+                <mark>switch结构中的表达式，只能是byte、short、char、int、枚举（JDK5.0新增）、String类型（JDK7.0新增）</mark>
+            </p>
+            <br/>
+            <h3 class="a0_6">带标签break和continue的使用</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>public</span> <span
+                    class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>main</span>(<span
+                    class='ace_support ace_function'>String</span>[] <span class='ace_identifier'>args</span>){
+</div><div class='ace_line'>  <span class='ace_identifier'>label</span><span
+                    class='ace_keyword ace_operator'>:</span><span class='ace_keyword'>for</span>(<span
+                    class='ace_keyword'>int</span> <span class='ace_identifier'>i</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_constant ace_numeric'>0</span>; <span class='ace_identifier'>i</span> <span
+                    class='ace_keyword ace_operator'>&#60;</span> <span class='ace_constant ace_numeric'>5</span>; <span
+                    class='ace_identifier'>i</span><span class='ace_keyword ace_operator'>++</span>){
+</div><div class='ace_line'>    <span class='ace_keyword'>for</span>(<span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>j</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_constant ace_numeric'>0</span>; <span class='ace_identifier'>j</span> <span
+                    class='ace_keyword ace_operator'>&#60;</span> <span class='ace_constant ace_numeric'>5</span>; <span
+                    class='ace_identifier'>j</span><span class='ace_keyword ace_operator'>++</span>){
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>  <span class='ace_keyword'>if</span>(<span
+                    class='ace_identifier'>j</span><span class='ace_keyword ace_operator'>=</span><span
+                    class='ace_constant ace_numeric'>2</span>) <span class='ace_keyword'>break</span> <span
+                    class='ace_identifier'>label</span>;
+</div><div class='ace_line'>    }
+</div><div class='ace_line'>  }
+</div><div class='ace_line'>}
+</div><div class='ace_line'><span class='ace_comment'>//continue<span class='ace_cjk' style='width:NaNpx'>也</span><span
+                    class='ace_cjk' style='width:NaNpx'>是</span><span class='ace_cjk' style='width:NaNpx'>如</span><span
+                    class='ace_cjk' style='width:NaNpx'>此</span><span class='ace_cjk' style='width:NaNpx'>，</span><span
+                    class='ace_cjk' style='width:NaNpx'>自</span><span class='ace_cjk' style='width:NaNpx'>行</span><span
+                    class='ace_cjk' style='width:NaNpx'>脑</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>补</span></span>
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a0_7">数组</h3>
+            <ul>
+                <li>创建数组对象会在内存中开辟一段连续的空间，而数组名中引用的是这段连续空间的首地址</li>
+                <li>数组的长度一旦确定，就不能修改</li>
+            </ul>
+            <p><strong>数组元素的默认初始化值</strong></p>
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align:center">整形</th>
+                    <th style="text-align:center">浮点型</th>
+                    <th style="text-align:center">char</th>
+                    <th style="text-align:center">boolean</th>
+                    <th style="text-align:center">引用类型</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align:center">0</td>
+                    <td style="text-align:center">0.0</td>
+                    <td style="text-align:center">0或'\u0000'</td>
+                    <td style="text-align:center">false</td>
+                    <td style="text-align:center">null</td>
+                </tr>
+                </tbody>
+            </table>
+            <p><strong>一维数组的声明和初始化</strong></p>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>public</span> <span
+                    class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>main</span>(<span
+                    class='ace_support ace_function'>String</span>[] <span class='ace_identifier'>args</span>){
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>静</span><span
+                    class='ace_cjk' style='width:NaNpx'>态</span><span class='ace_cjk' style='width:NaNpx'>初</span><span
+                    class='ace_cjk' style='width:NaNpx'>始</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>化</span> --- <span
+                    class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>组</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>初</span><span
+                    class='ace_cjk' style='width:NaNpx'>始</span><span class='ace_cjk' style='width:NaNpx'>化</span><span
+                    class='ace_cjk' style='width:NaNpx'>和</span><span class='ace_cjk' style='width:NaNpx'>数</span><span
+                    class='ace_cjk' style='width:NaNpx'>组</span><span class='ace_cjk' style='width:NaNpx'>元</span><span
+                    class='ace_cjk' style='width:NaNpx'>素</span><span class='ace_cjk' style='width:NaNpx'>的</span><span
+                    class='ace_cjk' style='width:NaNpx'>初</span><span class='ace_cjk' style='width:NaNpx'>始</span><span
+                    class='ace_cjk' style='width:NaNpx'>化</span><span class='ace_cjk' style='width:NaNpx'>同</span><span
+                    class='ace_cjk' style='width:NaNpx'>时</span><span class='ace_cjk' style='width:NaNpx'>进</span><span
+                    class='ace_cjk' style='width:NaNpx'>行</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>int</span>[] <span class='ace_identifier'>arr1</span>;
+</div><div class='ace_line'>  <span class='ace_identifier'>arr1</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_keyword'>int</span>[]{<span class='ace_constant ace_numeric'>1</span>,<span
+                    class='ace_constant ace_numeric'>2</span>,<span class='ace_constant ace_numeric'>3</span>,<span
+                    class='ace_constant ace_numeric'>4</span>};
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>动</span><span
+                    class='ace_cjk' style='width:NaNpx'>态</span><span class='ace_cjk' style='width:NaNpx'>初</span><span
+                    class='ace_cjk' style='width:NaNpx'>始</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>化</span> --- <span
+                    class='ace_cjk' style='width:NaNpx'>数</span><span class='ace_cjk' style='width:NaNpx'>组</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>初</span><span
+                    class='ace_cjk' style='width:NaNpx'>始</span><span class='ace_cjk' style='width:NaNpx'>化</span><span
+                    class='ace_cjk' style='width:NaNpx'>和</span><span class='ace_cjk' style='width:NaNpx'>数</span><span
+                    class='ace_cjk' style='width:NaNpx'>组</span><span class='ace_cjk' style='width:NaNpx'>元</span><span
+                    class='ace_cjk' style='width:NaNpx'>素</span><span class='ace_cjk' style='width:NaNpx'>的</span><span
+                    class='ace_cjk' style='width:NaNpx'>初</span><span class='ace_cjk' style='width:NaNpx'>始</span><span
+                    class='ace_cjk' style='width:NaNpx'>化</span><span class='ace_cjk' style='width:NaNpx'>分</span><span
+                    class='ace_cjk' style='width:NaNpx'>开</span><span class='ace_cjk' style='width:NaNpx'>进</span><span
+                    class='ace_cjk' style='width:NaNpx'>行</span></span>
+</div><div class='ace_line'>  <span class='ace_support ace_function'>String</span>[] <span
+                    class='ace_identifier'>arr2</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_keyword'>new</span> <span class='ace_support ace_function'>String</span>[<span
+                    class='ace_constant ace_numeric'>4</span>];
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <p><strong>二维数组的声明和初始化</strong></p>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>public</span> <span
+                    class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>main</span>(<span
+                    class='ace_support ace_function'>String</span>[] <span class='ace_identifier'>args</span>){
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>静</span><span
+                    class='ace_cjk' style='width:NaNpx'>态</span><span class='ace_cjk' style='width:NaNpx'>初</span><span
+                    class='ace_cjk' style='width:NaNpx'>始</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>化</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>int</span>[][] <span class='ace_identifier'>arr1</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_keyword'>int</span>[][]{{<span class='ace_constant ace_numeric'>1</span>,<span
+                    class='ace_constant ace_numeric'>2</span>},{<span class='ace_constant ace_numeric'>3</span>,<span
+                    class='ace_constant ace_numeric'>4</span>}};
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>动</span><span
+                    class='ace_cjk' style='width:NaNpx'>态</span><span class='ace_cjk' style='width:NaNpx'>初</span><span
+                    class='ace_cjk' style='width:NaNpx'>始</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>化</span></span>
+</div><div class='ace_line'>  <span class='ace_support ace_function'>String</span>[][] <span
+                    class='ace_identifier'>arr2</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_keyword'>new</span> <span class='ace_support ace_function'>String</span>[<span
+                    class='ace_constant ace_numeric'>2</span>][<span class='ace_constant ace_numeric'>2</span>];
+</div><div class='ace_line'>  <span class='ace_support ace_function'>String</span>[][] <span
+                    class='ace_identifier'>arr3</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_keyword'>new</span> <span class='ace_support ace_function'>String</span>[<span
+                    class='ace_constant ace_numeric'>2</span>][];
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h1>D6M9</h1>
+            <h3 class="a1_0">Arrays工具类的使用</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align:left">boolean equals(int[] a, int[] b)</th>
+                    <th style="text-align:left">判断两个数组是否相等</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align:left">String toString(int[] a)</td>
+                    <td style="text-align:left">输出数组信息</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">void fill(int[] a, int val)</td>
+                    <td style="text-align:left">将指定值填充到数组之中（替换）</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">void sort(int[] a)</td>
+                    <td style="text-align:left">对数组进行排序</td>
+                </tr>
+                <tr>
+                    <td style="text-align:left">int binarySearch(int [], int key)</td>
+                    <td style="text-align:left">对排序后的数组进行二分法检索指定的值，返回索引值</td>
+                </tr>
+                </tbody>
+            </table>
+            <br/>
+            <h3 class="a1_1">面向对象</h3>
+            <p>
+                <mark>内存解析</mark>
+            </p>
+            <ul>
+                <li>堆：存放对象实例及数组</li>
+                <li>栈：存储局部变量等，局部变量表存放了编译器可知长度的各种基本数据类型、对象引用（它不等同于对象本身，是对象在堆内存的首地址），方法执行完，自动释放</li>
+                <li>方法区：用于存储已被虚拟机加载的类信息、常量、静态变量等</li>
+            </ul>
+            <br/>
+            <h1>D7M9（面向对象）</h1>
+            <h3 class="a2_0">方法的重载</h3>
+            <blockquote>
+                <p>在一个类中，允许存在一个以上的同名方法，只要它们的参数个数或者参数类型不同即可</p>
+            </blockquote>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>class</span> <span class='ace_identifier'>Demo</span>{
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>void</span> <span
+                    class='ace_identifier'>test</span>(){...}
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>void</span> <span
+                    class='ace_identifier'>test</span>(<span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i</span>){...}
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>void</span> <span
+                    class='ace_identifier'>test</span>(<span class='ace_keyword'>char</span> <span
+                    class='ace_identifier'>c</span>){...}
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a2_1">可变个数的形参</h3>
+            <blockquote>
+                <p>JavaSE5.0中提供了Varargs机制，允许直接定义能和多个实参相匹配的形参</p>
+            </blockquote>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//JDK5.0<span class='ace_cjk'
+                                                                             style='width:NaNpx'>以</span><span
+                    class='ace_cjk' style='width:NaNpx'>前</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>public</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test</span>(<span
+                    class='ace_keyword'>int</span> <span class='ace_identifier'>a</span>, <span
+                    class='ace_support ace_function'>String</span>[] <span class='ace_identifier'>books</span>);
+</div><div class='ace_line'><span class='ace_comment'>//JDK5.0<span class='ace_cjk' style='width:NaNpx'>以</span><span
+                    class='ace_cjk' style='width:NaNpx'>后</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>public</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test</span>(<span
+                    class='ace_keyword'>int</span> <span class='ace_identifier'>a</span>, <span
+                    class='ace_support ace_function'>String</span>... <span class='ace_identifier'>books</span>);
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a2_2">封装性</h3>
+            <p>
+                <mark>隐藏对象内部的复杂性，之对外暴露简单的接口。便于外界调用，从而提高系统的可扩展性可维护性</mark>
+            </p>
+            <p>封装性的缘由：设置程序追求高内聚，低耦合</p>
+            <ul>
+                <li>高内聚：类的内部数据操作细节自己完成，不允许外部干涉</li>
+                <li>低耦合：仅对外暴露少量的方法用于使用</li>
+            </ul>
+            <br/>
+            <h3 class="a2_3">4种访问权限修饰符</h3>
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align:center">修饰符</th>
+                    <th style="text-align:center">类内部</th>
+                    <th style="text-align:center">同一个包</th>
+                    <th style="text-align:center">不同包的子类</th>
+                    <th style="text-align:center">同一个工程</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align:center">private</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">（缺省）</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">protected</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center"></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">public</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li>4种权限修饰符可以用来修饰类的内部结构：属性、方法、构造器、内部类</li>
+                <li>对于class的权限修饰符只可以用public和default</li>
+            </ul>
+            <br/>
+            <h3 class="a2_4">JavaBean</h3>
+            <p>JavaBean是一种Java语言写的可重用组件，是符合以下标准类：</p>
+            <ul>
+                <li>类是公共的</li>
+                <li>有一个无参的公共的构造器</li>
+                <li>有属性，且有对应的get，set方法</li>
+            </ul>
+            <br/>
+            <h3 class="a2_5">this关键字</h3>
+            <p>this调用构造器</p>
+            <p>条件：</p>
+            <ul>
+                <li>构造器中不能通过this(形参列表)方式调用自己</li>
+                <li>this(形参列表)必须声明在当前构造器的首行</li>
+                <li>构造器内部，最多只能声明一个this(形参列表)，用来调用其他的构造器</li>
+            </ul>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>public</span> <span
+                    class='ace_keyword'>class</span> <span
+                    class='ace_identifier'>Demo</span> {
+</div><div class='ace_line'>    <span class='ace_keyword'>private</span> <span
+                    class='ace_support ace_function'>String</span> <span class='ace_identifier'>name</span>;
+</div><div class='ace_line'>    <span class='ace_keyword'>private</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>age</span>;
+</div><div class='ace_line'>
+</div><div class='ace_line'>    <span class='ace_keyword'>public</span> <span class='ace_identifier'>Demo</span>(){
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span
+                    class='ace_support ace_function'>System</span>.<span class='ace_identifier'>out</span>.<span
+                    class='ace_identifier'>println</span>(<span class='ace_string'>&#34;<span class='ace_cjk'
+                                                                                              style='width:NaNpx'>无</span><span
+                    class='ace_cjk' style='width:NaNpx'>参</span><span class='ace_cjk' style='width:NaNpx'>构</span><span
+                    class='ace_cjk' style='width:NaNpx'>造</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>器</span>&#34;</span>);
+</div><div class='ace_line'>    };
+</div><div class='ace_line'>
+</div><div class='ace_line'>    <span class='ace_keyword'>public</span> <span class='ace_identifier'>Demo</span>(<span
+                    class='ace_support ace_function'>String</span> <span class='ace_identifier'>name</span>){
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span class='ace_keyword'>this</span>();
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span
+                    class='ace_support ace_function'>System</span>.<span class='ace_identifier'>out</span>.<span
+                    class='ace_identifier'>println</span>(<span class='ace_string'>&#34;<span class='ace_cjk'
+                                                                                              style='width:NaNpx'>有</span><span
+                    class='ace_cjk' style='width:NaNpx'>一</span><span class='ace_cjk' style='width:NaNpx'>个</span><span
+                    class='ace_cjk' style='width:NaNpx'>参</span><span class='ace_cjk' style='width:NaNpx'>数</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>构</span><span
+                    class='ace_cjk' style='width:NaNpx'>造</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>器</span>&#34;</span>);
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span class='ace_keyword'>this</span>.<span
+                    class='ace_identifier'>name</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_identifier'>name</span>;
+</div><div class='ace_line'>    }
+</div><div class='ace_line'>
+</div><div class='ace_line'>    <span class='ace_keyword'>public</span> <span class='ace_identifier'>Demo</span>(<span
+                    class='ace_support ace_function'>String</span> <span class='ace_identifier'>name</span>, <span
+                    class='ace_keyword'>int</span> <span class='ace_identifier'>age</span>){
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span class='ace_keyword'>this</span>(<span
+                    class='ace_identifier'>name</span>);
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span
+                    class='ace_support ace_function'>System</span>.<span class='ace_identifier'>out</span>.<span
+                    class='ace_identifier'>println</span>(<span class='ace_string'>&#34;<span class='ace_cjk'
+                                                                                              style='width:NaNpx'>有</span><span
+                    class='ace_cjk' style='width:NaNpx'>两</span><span class='ace_cjk' style='width:NaNpx'>个</span><span
+                    class='ace_cjk' style='width:NaNpx'>参</span><span class='ace_cjk' style='width:NaNpx'>数</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>构</span><span
+                    class='ace_cjk' style='width:NaNpx'>造</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>器</span>&#34;</span>);
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span class='ace_keyword'>this</span>.<span
+                    class='ace_identifier'>age</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_identifier'>age</span>;
+</div><div class='ace_line'>    }
+</div><div class='ace_line'>
+</div><div class='ace_line'>    <span class='ace_keyword'>public</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>main</span>(<span
+                    class='ace_support ace_function'>String</span>[] <span class='ace_identifier'>args</span>) {
+</div><div class='ace_line'><span class='ace_indent-guide'>    </span>    <span class='ace_identifier'>Demo</span> <span
+                    class='ace_identifier'>demo</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_keyword'>new</span> <span class='ace_identifier'>Demo</span>(<span class='ace_string'>&#34;long&#34;</span>, <span
+                    class='ace_constant ace_numeric'>20</span>);
+</div><div class='ace_line'>    }
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a2_6">继承性</h3>
+            <p>
+                <mark>一旦子类继承父类后，父类中的所有属性和方法都将被属性所获得，私有的也不例外。但是由于封装性的影响，子类只能通过父类的公有方法调用其私有变量或方法。</mark>
+            </p>
+            <br/>
+            <h3 class="a2_7">方法的重写</h3>
+            <p>
+                <mark>子类继承父类以后，可以对父类中同名同参的方法进行覆盖操作</mark>
+            </p>
+            <p>
+                <mark>重写即覆盖，覆盖即说明子类的“范围”要比父类大</mark>
+            </p>
+            <ul>
+                <li>子类中的重写方法的权限修饰符需要大于等于父类中被重写方法的权限修饰符</li>
+                <li>子类不能对父类的私有方法进行重写</li>
+                <li>父类被重写的方法的返回值类型为void，则子类重写的方法的返回值类型只能是void</li>
+                <li>父类被重写的方法的返回值类型为A类型，则子类重写的方法的返回值类型只能是A类型或A类型的子类</li>
+                <li>父类被重写的方法的返回值类型为基本数据类型，则子类重写的方法的返回值类型只能是相同的基本数据类型</li>
+                <li>子类重写方法抛出的异常不大于父类被重写方法抛出的异常类型；如果父类被重写方法抛出异常，子类重写方法要么不抛异常，要么抛出该异常或该异常的子类</li>
+            </ul>
+            <blockquote>
+                <p>子类和父类中同名同参的方法要么都声明为非static（考虑重写），要么都声明为static</p>
+            </blockquote>
+            <br/>
+            <h3 class="a2_8">super关键字</h3>
+            <p>super调用构造器</p>
+            <p>条件：</p>
+            <ul>
+                <li>super(形参列表)必须在子类构造器的首行</li>
+                <li>在子类的构造器中，this(形参列表)和super(形参列表)只能二选一，不能同时出现</li>
+                <li>在子类的构造器中，如果没有显式的声明this(形参列表)或super(形参列表)，则默认调用的是super()</li>
+            </ul>
+            <br/>
+            <h1>D8M9（面向对象）</h1>
+            <h3 class="a3_0">子类对象实例化的全过程</h3>
+            <ol>
+                <li>从结果上来看（继承性）：
+                    <ul>
+                        <li>子类继承父类以后，就获取了父类中声明的属性和方法</li>
+                        <li>创建子类对象，在堆空间中，就会加载所有父类中声明的属性</li>
+                    </ul>
+                </li>
+                <li>从过程上来看：
+                    <ul>
+                        <li>
+                            当通过子类构造器来创建子类对象时，会直接或间接的调用其父类的构造器，进而调用父类的父类的构造器，直到调用了java.lang.Object类中空参的构造器为止。正因为加载过所有父类的结构，所以才可以看到内存中有父类的结构，子类对象才可以考虑进行调用。
+                            <mark>总之就是实例化子类时把所有父类的属性和方法进行初始化供其子类调用</mark>
+                        </li>
+                        <li>虽然创建子类对象时调用了父类的构造器，但是自始至终就创建过一个对象，即new的对象</li>
+                    </ul>
+                </li>
+            </ol>
+            <br/>
+            <h3 class="a3_1">多态性</h3>
+            <ol>
+                <li>理解多态性：可以理解为一个事物的多种形态</li>
+                <li>何为多态性：对象的多态性 --&gt; 父类的引用指向子类的对象</li>
+                <li>多态性的使用，虚拟方法调用：在编译期，只能调用父类中声明的方法；在运行期，执行的是子类重写父类的方法。
+                    <mark>总结：编译看左边，运行看右边</mark>
+                </li>
+                <li>多态性的使用前提：
+                    <ul>
+                        <li>有类的继承关系</li>
+                        <li>有方法的重写</li>
+                    </ul>
+                </li>
+                <li>对象的多态性，只适用于方法，不适用于属性；调用属性仍是父类的</li>
+            </ol>
+            <p>虚拟方法调用（多态情况下）：子类中定义了与父类同名同参数的方法，
+                <mark>在多态情况下，将此时父类的方法称为虚拟方法</mark>
+                ，父类根据赋给它的不同子类对象，动态调用属于子类的该方法，这样的方法调用在编译器是无法确定的
+            </p>
+            <p>编译时和运行时类型（多态情况下）：
+                <mark>编译时对象类型看左边，运行时类型看右边</mark>
+                ；方法的调用是在运行是确定的
+            </p>
+            <p>
+                早绑定和晚绑定：对于重载而言，在方法调用之前，编译器就已经确定了要调用的方法，这称为“早绑定”或者“静态绑定”；对于多态而言，只有等到方法调用的那一刻，解释运行器才会确定所要调用的具体方法，这称为“晚绑定”或“动态绑定”；如果不是“晚绑定”，就不是多态
+            </p>
+            <br/>
+            <h3 class="a3_2">instanceof关键字</h3>
+            <p>用法：a instanceof A --&gt; 判断对象a是否是类A或类A子类的实例；return true/false；</p>
+            <p>如何调用子类独有的属性（多态情况下）：向下转型，使用强转符</p>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//Zi<span class='ace_cjk'
+                                                                         style='width:NaNpx'>继</span><span
+                    class='ace_cjk' style='width:NaNpx'>承</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>了</span>Fu</span>
+</div><div class='ace_line'><span class='ace_identifier'>Fu</span> <span class='ace_identifier'>fu</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_identifier'>Zi</span>();
+</div><div class='ace_line'><span class='ace_identifier'>Zi</span> <span class='ace_identifier'>zi</span> <span
+                    class='ace_keyword ace_operator'>=</span> (<span class='ace_identifier'>Zi</span>)<span
+                    class='ace_identifier'>fu</span>;
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>使</span><span
+                    class='ace_cjk' style='width:NaNpx'>用</span><span class='ace_cjk' style='width:NaNpx'>强</span><span
+                    class='ace_cjk' style='width:NaNpx'>转</span><span class='ace_cjk' style='width:NaNpx'>时</span><span
+                    class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>可</span><span
+                    class='ace_cjk' style='width:NaNpx'>能</span><span class='ace_cjk' style='width:NaNpx'>出</span><span
+                    class='ace_cjk' style='width:NaNpx'>现</span>ClassCastException<span class='ace_cjk'
+                                                                                        style='width:NaNpx'>异</span><span
+                    class='ace_cjk' style='width:NaNpx'>常</span><span class='ace_cjk' style='width:NaNpx'>，</span><span
+                    class='ace_cjk' style='width:NaNpx'>此</span><span class='ace_cjk' style='width:NaNpx'>时</span><span
+                    class='ace_cjk' style='width:NaNpx'>需</span><span class='ace_cjk' style='width:NaNpx'>要</span><span
+                    class='ace_cjk' style='width:NaNpx'>引</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>入</span>instanceof<span
+                    class='ace_cjk' style='width:NaNpx'>关</span><span class='ace_cjk' style='width:NaNpx'>键</span><span
+                    class='ace_cjk' style='width:NaNpx'>字</span></span>
+</div><div class='ace_line'><span class='ace_identifier'>Fu</span> <span class='ace_identifier'>fu</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_identifier'>Zi</span>();
+</div><div class='ace_line'><span class='ace_keyword'>if</span>(<span class='ace_identifier'>fu</span> <span
+                    class='ace_keyword'>instanceof</span> <span class='ace_identifier'>Zi</span>){
+</div><div class='ace_line'>  <span class='ace_identifier'>Zi</span> <span class='ace_identifier'>zi</span> <span
+                    class='ace_keyword ace_operator'>=</span> (<span class='ace_identifier'>Zi</span>)<span
+                    class='ace_identifier'>fu</span>;
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a3_3">基本类型转包装类</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_support ace_function'>Integer</span> <span
+                    class='ace_identifier'>i</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_support ace_function'>Integer</span>(<span class='ace_constant ace_numeric'>123</span>);
+</div><div class='ace_line'><span class='ace_support ace_function'>Float</span> <span
+                    class='ace_identifier'>f</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_keyword'>new</span> <span
+                    class='ace_support ace_function'>Float</span>(<span class='ace_constant ace_numeric'>123.123</span>);
+</div><div class='ace_line'><span class='ace_support ace_function'>Boolean</span> <span class='ace_identifier'>b</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_support ace_function'>Boolean</span>(<span
+                    class='ace_constant ace_language ace_boolean'>true</span>);
+</div><div class='ace_line'>...
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a3_4">包装类转基本类型</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_keyword'>int</span> <span class='ace_identifier'>i</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_support ace_function'>Integer</span>(<span
+                    class='ace_constant ace_numeric'>123</span>).<span
+                    class='ace_identifier'>intValue</span>();
+</div><div class='ace_line'><span class='ace_keyword'>float</span> <span class='ace_identifier'>f</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_support ace_function'>Float</span>(<span
+                    class='ace_constant ace_numeric'>123.123</span>).<span
+                    class='ace_identifier'>floatValue</span>();
+</div><div class='ace_line'>...
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a3_5">JDK5.0新特性：自动装箱与自动拆箱</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>自</span><span
+                    class='ace_cjk' style='width:NaNpx'>动</span><span class='ace_cjk' style='width:NaNpx'>装</span><span
+                    class='ace_cjk' style='width:NaNpx'>箱</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>int</span> <span class='ace_identifier'>i1</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_constant ace_numeric'>123</span>;
+</div><div class='ace_line'><span class='ace_support ace_function'>Integer</span> <span class='ace_identifier'>i2</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>i</span>;
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>自</span><span
+                    class='ace_cjk' style='width:NaNpx'>动</span><span class='ace_cjk' style='width:NaNpx'>拆</span><span
+                    class='ace_cjk' style='width:NaNpx'>箱</span></span>
+</div><div class='ace_line'><span class='ace_support ace_function'>Boolean</span> <span class='ace_identifier'>b1</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_constant ace_language ace_boolean'>true</span>;
+</div><div class='ace_line'><span class='ace_keyword'>boolean</span> <span class='ace_identifier'>b2</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>b1</span>;
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a3_6">基本数据类型、包装类 ---&gt; String类型</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>方</span><span
+                    class='ace_cjk' style='width:NaNpx'>式</span>1<span class='ace_cjk' style='width:NaNpx'>：</span><span
+                    class='ace_cjk' style='width:NaNpx'>连</span><span class='ace_cjk' style='width:NaNpx'>接</span><span
+                    class='ace_cjk' style='width:NaNpx'>运</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>算</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>int</span> <span class='ace_identifier'>i</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_constant ace_numeric'>123</span>;
+</div><div class='ace_line'><span class='ace_support ace_function'>String</span> <span class='ace_identifier'>s1</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>i</span> <span
+                    class='ace_keyword ace_operator'>+</span> <span class='ace_string'>&#34;&#34;</span>;
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>方</span><span
+                    class='ace_cjk' style='width:NaNpx'>式</span>2<span class='ace_cjk' style='width:NaNpx'>：</span><span
+                    class='ace_cjk' style='width:NaNpx'>调</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>用</span>String<span
+                    class='ace_cjk' style='width:NaNpx'>的</span>valueOf(Xxx xxx)</span>
+</div><div class='ace_line'><span class='ace_keyword'>float</span> <span class='ace_identifier'>f</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_constant ace_numeric'>123.123f</span>
+</div><div class='ace_line'><span class='ace_support ace_function'>String</span> <span class='ace_identifier'>s2</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_support ace_function'>String</span>.<span
+                    class='ace_identifier'>valueOf</span>(<span class='ace_identifier'>f</span>);
+</div><div class='ace_line'><span class='ace_support ace_function'>Double</span> <span
+                    class='ace_identifier'>d</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_constant ace_numeric'>123.123</span>;
+</div><div class='ace_line'><span class='ace_support ace_function'>String</span> <span class='ace_identifier'>s3</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_support ace_function'>String</span>.<span
+                    class='ace_identifier'>valueOf</span>(<span class='ace_identifier'>d</span>);
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a3_7">String类型 --&gt; 基本数据类型、包装类</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>调</span><span
+                    class='ace_cjk' style='width:NaNpx'>用</span><span class='ace_cjk' style='width:NaNpx'>包</span><span
+                    class='ace_cjk' style='width:NaNpx'>装</span><span class='ace_cjk' style='width:NaNpx'>类</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span>parseXxx(String s)</span>
+</div><div class='ace_line'><span class='ace_keyword'>int</span> <span class='ace_identifier'>i</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_support ace_function'>Integer</span>.<span
+                    class='ace_identifier'>parseInt</span>(<span class='ace_string'>&#34;123&#34;</span>);
+</div><div class='ace_line'><span class='ace_keyword'>boolean</span> <span class='ace_identifier'>b</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_support ace_function'>Boolean</span>.<span
+                    class='ace_identifier'>parseBoolean</span>(<span class='ace_string'>&#34;true&#34;</span>);
+</div></div></div></code></pre>
+            <br/>
+            <h1>D9M9（面向对象）</h1>
+            <h3 class="a4_0">static关键字</h3>
+            <p>static可以用来修饰：属性、方法、代码块、内部类</p>
+            <p>静态变量随着类的加载而加载</p>
+            <p>由于类只会加载一次，则静态变量在内存中也只会存在一份，存在方法区的静态域中</p>
+            <br/>
+            <h3 class="a4_1">单例设计模式</h3>
+            <blockquote>
+                <p>设计模式是在大量的实践中总结和理论化之后优选的代码结构、编程风格、以及解决问题的思考方式。免去我们自己再思考和摸索</p>
+            </blockquote>
+            <p>
+                对于某个类，只能存在一个对象实例，所以要将该类的构造器的访问权限设置为private，这样，就不能在外部创建这个类的实例。在内部需提供一个静态方法来return该类的实例供外部调用，这个实例也需要设置为静态，这样实例才能被静态方法调用
+            </p>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>饿</span><span
+                    class='ace_cjk' style='width:NaNpx'>汉</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>式</span></span>
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>好</span><span
+                    class='ace_cjk' style='width:NaNpx'>处</span><span class='ace_cjk' style='width:NaNpx'>：</span><span
+                    class='ace_cjk' style='width:NaNpx'>线</span><span class='ace_cjk' style='width:NaNpx'>程</span><span
+                    class='ace_cjk' style='width:NaNpx'>安</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>全</span></span>
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>坏</span><span
+                    class='ace_cjk' style='width:NaNpx'>处</span><span class='ace_cjk' style='width:NaNpx'>：</span><span
+                    class='ace_cjk' style='width:NaNpx'>对</span><span class='ace_cjk' style='width:NaNpx'>象</span><span
+                    class='ace_cjk' style='width:NaNpx'>加</span><span class='ace_cjk' style='width:NaNpx'>载</span><span
+                    class='ace_cjk' style='width:NaNpx'>时</span><span class='ace_cjk' style='width:NaNpx'>间</span><span
+                    class='ace_cjk' style='width:NaNpx'>过</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>长</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>class</span> <span class='ace_identifier'>SingletonTest01</span> {
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_identifier'>SingletonTest01</span> <span class='ace_identifier'>st</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_keyword'>new</span> <span
+                    class='ace_identifier'>SingletonTest01</span>();
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span
+                    class='ace_identifier'>SingletonTest01</span>(){};
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span
+                    class='ace_identifier'>SingletonTest01</span> <span class='ace_identifier'>getST</span>(){
+</div><div class='ace_line'>    <span class='ace_keyword'>return</span> <span class='ace_identifier'>st</span>;
+</div><div class='ace_line'>  }
+</div><div class='ace_line'>}
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>懒</span><span
+                    class='ace_cjk' style='width:NaNpx'>汉</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>式</span></span>
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>好</span><span
+                    class='ace_cjk' style='width:NaNpx'>处</span><span class='ace_cjk' style='width:NaNpx'>：</span><span
+                    class='ace_cjk' style='width:NaNpx'>延</span><span class='ace_cjk' style='width:NaNpx'>迟</span><span
+                    class='ace_cjk' style='width:NaNpx'>对</span><span class='ace_cjk' style='width:NaNpx'>象</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>创</span><span
+                    class='ace_cjk' style='width:NaNpx'>建</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>class</span> <span class='ace_identifier'>SingletonTest02</span> {
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_identifier'>SingletonTest02</span> <span class='ace_identifier'>st</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_constant ace_language'>null</span>;
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span
+                    class='ace_identifier'>SingletonTest02</span>(){};
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span
+                    class='ace_identifier'>SingletonTest02</span> <span class='ace_identifier'>getST</span>(){
+</div><div class='ace_line'>    <span class='ace_keyword'>if</span>(<span class='ace_identifier'>st</span> <span
+                    class='ace_keyword ace_operator'>==</span> <span
+                    class='ace_constant ace_language'>null</span>) <span
+                    class='ace_identifier'>st</span> <span class='ace_keyword ace_operator'>=</span> <span
+                    class='ace_keyword'>new</span> <span
+                    class='ace_identifier'>SingletonTest02</span>();
+</div><div class='ace_line'>    <span class='ace_keyword'>return</span> <span class='ace_identifier'>st</span>;
+</div><div class='ace_line'>  }
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a4_2">理解main方法的语法</h3>
+            <p>main方法的使用说明</p>
+            <ol>
+                <li>main方法作为程序的入口</li>
+                <li>main方法也是一个普通的静态方法，也可以被其他的方法调用</li>
+                <li>main方法可以作为与控制台交互的方式</li>
+            </ol>
+            <br/>
+            <h3 class="a4_3">代码块</h3>
+            <ol>
+                <li>代码块的作用：用来初始化类、对象</li>
+                <li>代码块如果有修饰，只能用static修饰</li>
+            </ol>
+            <p>静态代码块</p>
+            <ul>
+                <li>内部可以有输出语句</li>
+                <li>随着类的加载而执行，而且只加载一次</li>
+                <li>如果一个类中定义了多个静态代码块，则按从上到下的先后顺序执行</li>
+                <li>属性：初始化类的信息</li>
+            </ul>
+            <p>非静态代码块</p>
+            <ul>
+                <li>内部可以有输出语句</li>
+                <li>随着对象的创建而执行</li>
+                <li>每创建一个对象，就执行一次非静态代码块</li>
+                <li>作用：在创建对象时，对对象的属性进行初始化</li>
+            </ul>
+            <br/>
+            <h3 class="a4_4">属性赋值的先后顺序</h3>
+            <ol>
+                <li>默认初始化</li>
+                <li>显式初始化/在代码块中赋值</li>
+                <li>构造器中初始化</li>
+                <li>有对象后，通过调用属性或者方法赋值</li>
+            </ol>
+            <br/>
+            <h3 class="a4_5">final关键字</h3>
+            <ol>
+                <li>final可以用来修饰的结构：类、方法、变量</li>
+                <li>final用来修饰一个类：此类不能被其他类基础</li>
+                <li>final用来修饰方法：表示此方法不能被重写</li>
+                <li>final用来修饰变量，此时的变量就称为是一个常量
+                    <ul>
+                        <li>final修饰属性，可以考虑赋值的位置有：显式初始化、代码块中初始化、构造器中初始化</li>
+                        <li>final修饰局部变量</li>
+                    </ul>
+                </li>
+                <li>static final用来修饰属性：全局常量</li>
+            </ol>
+            <br/>
+            <h3 class="a4_6">abstract关键字</h3>
+            <ol>
+                <li>abstract：抽象的</li>
+                <li>abstract可以用来修饰的结构：类、方法</li>
+                <li>abstract修饰类：抽象类
+                    <ul>
+                        <li>此类不能实例化</li>
+                        <li>抽象类中一定有构造器，便于子类实例化调用</li>
+                    </ul>
+                </li>
+                <li>abstract修饰方法：抽象方法
+                    <ul>
+                        <li>抽象方法只有方法的声明，没有方法体</li>
+                        <li>子类重写父类中所有抽象方法后才能实例化</li>
+                    </ul>
+                </li>
+            </ol>
+            <h1>D10M9（面向对象）</h1>
+            <h3 class="a5_0">接口</h3>
+            <ol>
+                <li>接口使用interface来定义</li>
+                <li>如何定义接口，定义接口中的成员
+                    <ol>
+                        <li>JDK7及以前：只能定义全局常量和抽象方法
+                            <ul>
+                                <li>全局常量：public static final，接口中的常量默认类型就是这个</li>
+                                <li>抽象方法：public abstract，接口中的方法默认类型就是这个</li>
+                            </ul>
+                        </li>
+                        <li>JDK8：除了定义全局常量和抽象方法之外，还可以定义静态方法，默认方法</li>
+                    </ol>
+                </li>
+                <li>接口中不能定义构造器，意味着接口不能实例化</li>
+                <li>通过implements的方式实现接口，如果实现类实现了接口中所有的抽象方法，则次实现类可以实例化</li>
+                <li>Java类可以实现多个接口</li>
+            </ol>
+            <br/>
+            <h3 class="a5_1">
+                <mark>抽象类与接口的异同（面试题）</mark>
+            </h3>
+            <p>相同点：</p>
+            <ol>
+                <li>抽象类和接口都不能被实例化，但可以定义抽象类和接口类型的引用</li>
+                <li>一个类如果继承了抽象类和接口，必须要对其中的抽象方法全部实现。否则该类仍然需要被声明为抽象类</li>
+            </ol>
+            <p>不同点：</p>
+            <table>
+                <thead>
+                <tr>
+                    <th style="text-align:center">访问修饰符</th>
+                    <th style="text-align:center">抽象类的变量</th>
+                    <th style="text-align:center">抽象类的方法</th>
+                    <th style="text-align:center">接口的变量</th>
+                    <th style="text-align:center">接口的方法</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td style="text-align:center">public</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">default</td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center">✔</td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">protected</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center"></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">private</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center"></td>
+                    <td style="text-align:center">✔</td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">final</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center"></td>
+                </tr>
+                <tr>
+                    <td style="text-align:center">static</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                    <td style="text-align:center">✔</td>
+                </tr>
+                </tbody>
+            </table>
+            <ul>
+                <li>JDK7及以前：接口的内部主要就是封装了方法，包含抽象方法</li>
+                <li>JDK8：接口中新增静态方法和默认方法</li>
+                <li>JDK9：接口中新增私有方法</li>
+            </ul>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>抽</span><span
+                    class='ace_cjk' style='width:NaNpx'>象</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>类</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>abstract</span> <span class='ace_keyword'>class</span> <span
+                    class='ace_identifier'>TestAbsCls</span>{
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>抽</span><span
+                    class='ace_cjk' style='width:NaNpx'>象</span><span class='ace_cjk' style='width:NaNpx'>类</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>变</span><span
+                    class='ace_cjk' style='width:NaNpx'>量</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i1</span>;
+</div><div class='ace_line'>  <span class='ace_keyword'>protected</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i2</span>;
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i3</span>;
+</div><div class='ace_line'>  <span class='ace_keyword'>final</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i4</span>;
+</div><div class='ace_line'>  {<span class='ace_identifier'>i4</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_constant ace_numeric'>0</span>;}
+</div><div class='ace_line'>  <span class='ace_keyword'>static</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i5</span>;
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>还</span><span
+                    class='ace_cjk' style='width:NaNpx'>可</span><span class='ace_cjk' style='width:NaNpx'>以</span><span
+                    class='ace_cjk' style='width:NaNpx'>组</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>合</span></span>
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>权</span><span
+                    class='ace_cjk' style='width:NaNpx'>限</span><span class='ace_cjk' style='width:NaNpx'>修</span><span
+                    class='ace_cjk' style='width:NaNpx'>饰</span><span class='ace_cjk' style='width:NaNpx'>符</span> static final <span
+                    class='ace_cjk' style='width:NaNpx'>类</span><span class='ace_cjk' style='width:NaNpx'>型</span><span
+                    class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>等</span><span
+                    class='ace_cjk' style='width:NaNpx'>等</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>final</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i6</span>;
+</div><div class='ace_line'>  <span class='ace_keyword'>static</span>{<span class='ace_identifier'>i6</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_constant ace_numeric'>0</span>;}
+</div><div class='ace_line'>  <span class='ace_keyword'>protected</span> <span class='ace_keyword'>final</span> <span
+                    class='ace_keyword'>int</span> <span class='ace_identifier'>i7</span>;
+</div><div class='ace_line'>
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>抽</span><span
+                    class='ace_cjk' style='width:NaNpx'>象</span><span class='ace_cjk' style='width:NaNpx'>类</span><span
+                    class='ace_cjk' style='width:NaNpx'>的</span><span class='ace_cjk' style='width:NaNpx'>方</span><span
+                    class='ace_cjk' style='width:NaNpx'>法</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>abstract</span> <span class='ace_keyword'>public</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test01</span>();
+</div><div class='ace_line'>  <span class='ace_keyword'>abstract</span> <span class='ace_keyword'>protected</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test02</span>(){};
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>final</span> <span class='ace_keyword'>void</span> <span
+                    class='ace_identifier'>test03</span>(){};
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>final</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test04</span>(){};
+</div><div class='ace_line'>}
+</div><div class='ace_line'>
+</div><div class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>接</span><span
+                    class='ace_cjk' style='width:NaNpx'>口</span></span>
+</div><div class='ace_line'><span class='ace_keyword'>interface</span> <span class='ace_identifier'>TestIntF</span>{
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>接</span><span
+                    class='ace_cjk' style='width:NaNpx'>口</span><span class='ace_cjk' style='width:NaNpx'>的</span><span
+                    class='ace_cjk' style='width:NaNpx'>变</span><span class='ace_cjk' style='width:NaNpx'>量</span><span
+                    class='ace_cjk' style='width:NaNpx'>只</span><span class='ace_cjk' style='width:NaNpx'>能</span><span
+                    class='ace_cjk' style='width:NaNpx'>是</span>public static final</span>
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>final</span> <span class='ace_keyword'>int</span> <span
+                    class='ace_identifier'>i1</span><span
+                    class='ace_keyword ace_operator'>=</span><span class='ace_constant ace_numeric'>0</span>;
+</div><div class='ace_line'>  <span class='ace_comment'>//public static final<span class='ace_cjk'
+                                                                                   style='width:NaNpx'>可</span><span
+                    class='ace_cjk' style='width:NaNpx'>省</span><span class='ace_cjk' style='width:NaNpx'>略</span><span
+                    class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>接</span><span
+                    class='ace_cjk' style='width:NaNpx'>口</span><span class='ace_cjk' style='width:NaNpx'>的</span><span
+                    class='ace_cjk' style='width:NaNpx'>变</span><span class='ace_cjk' style='width:NaNpx'>量</span><span
+                    class='ace_cjk' style='width:NaNpx'>默</span><span class='ace_cjk' style='width:NaNpx'>认</span><span
+                    class='ace_cjk' style='width:NaNpx'>类</span><span class='ace_cjk' style='width:NaNpx'>型</span><span
+                    class='ace_cjk' style='width:NaNpx'>就</span><span class='ace_cjk' style='width:NaNpx'>是</span><span
+                    class='ace_cjk' style='width:NaNpx'>这</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>个</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>int</span> <span class='ace_identifier'>i2</span><span
+                    class='ace_keyword ace_operator'>=</span><span class='ace_constant ace_numeric'>0</span>;
+</div><div class='ace_line'>
+</div><div class='ace_line'>  <span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>接</span><span
+                    class='ace_cjk' style='width:NaNpx'>口</span><span class='ace_cjk' style='width:NaNpx'>的</span><span
+                    class='ace_cjk' style='width:NaNpx'>方</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>法</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>abstract</span> <span class='ace_keyword'>public</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test01</span>();
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>default</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test02</span>(){...};
+</div><div class='ace_line'>  <span class='ace_comment'>//JDK9<span class='ace_cjk' style='width:NaNpx'>新</span><span
+                    class='ace_cjk' style='width:NaNpx'>特</span><span class='ace_cjk' style='width:NaNpx'>性</span><span
+                    class='ace_cjk' style='width:NaNpx'>，</span><span class='ace_cjk' style='width:NaNpx'>私</span><span
+                    class='ace_cjk' style='width:NaNpx'>有</span><span class='ace_cjk' style='width:NaNpx'>方</span><span
+                    class='ace_cjk' style='width:NaNpx'>法</span><span class='ace_cjk' style='width:NaNpx'>和</span><span
+                    class='ace_cjk' style='width:NaNpx'>私</span><span class='ace_cjk' style='width:NaNpx'>有</span><span
+                    class='ace_cjk' style='width:NaNpx'>静</span><span class='ace_cjk' style='width:NaNpx'>态</span><span
+                    class='ace_cjk' style='width:NaNpx'>方</span><span class='ace_cjk'
+                                                                      style='width:NaNpx'>法</span></span>
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span class='ace_keyword'>void</span> <span
+                    class='ace_identifier'>test03</span>(){...};
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span class='ace_keyword'>static</span> <span
+                    class='ace_keyword'>void</span> <span class='ace_identifier'>test04</span>(){...};
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a5_2">代理模式</h3>
+            <pre><code class="language-java"><div class='ace-tm'><div class='ace_static_highlight'
+                                                                      style='counter-reset:ace_line 0'><div
+                    class='ace_line'><span class='ace_comment'>//<span class='ace_cjk' style='width:NaNpx'>一</span><span
+                    class='ace_cjk' style='width:NaNpx'>个</span><span class='ace_cjk' style='width:NaNpx'>简</span><span
+                    class='ace_cjk' style='width:NaNpx'>单</span><span class='ace_cjk' style='width:NaNpx'>的</span><span
+                    class='ace_cjk' style='width:NaNpx'>小</span>demo</span>
+</div><div class='ace_line'><span class='ace_keyword'>interface</span> <span class='ace_identifier'>Star</span>{
+</div><div class='ace_line'>  <span class='ace_keyword'>void</span> <span class='ace_identifier'>sing</span>();
+</div><div class='ace_line'>}
+</div><div class='ace_line'>
+</div><div class='ace_line'><span class='ace_keyword'>class</span> <span class='ace_identifier'>RealStar</span> <span
+                    class='ace_keyword'>implements</span> <span class='ace_identifier'>Star</span>{
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>void</span> <span
+                    class='ace_identifier'>sing</span>(){
+</div><div class='ace_line'>    <span class='ace_identifier'>sout</span>(<span
+                    class='ace_string'>&#34;sing...&#34;</span>);
+</div><div class='ace_line'>  }
+</div><div class='ace_line'>}
+</div><div class='ace_line'>
+</div><div class='ace_line'><span class='ace_keyword'>class</span> <span class='ace_identifier'>Proxy</span> <span
+                    class='ace_keyword'>implements</span> <span class='ace_identifier'>Star</span>{
+</div><div class='ace_line'>  <span class='ace_keyword'>private</span> <span class='ace_identifier'>Star</span> <span
+                    class='ace_identifier'>star</span>;
+</div><div class='ace_line'>
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_identifier'>Proxy</span>(<span
+                    class='ace_identifier'>Star</span> <span class='ace_identifier'>star</span>){
+</div><div class='ace_line'>    <span class='ace_keyword'>this</span>.<span class='ace_identifier'>star</span> <span
+                    class='ace_keyword ace_operator'>=</span> <span class='ace_identifier'>star</span>;
+</div><div class='ace_line'>  }
+</div><div class='ace_line'>
+</div><div class='ace_line'>  <span class='ace_keyword'>public</span> <span class='ace_keyword'>void</span> <span
+                    class='ace_identifier'>sing</span>(){
+</div><div class='ace_line'>    <span class='ace_identifier'>sout</span>(<span class='ace_string'>&#34;<span
+                    class='ace_cjk' style='width:NaNpx'>经</span><span class='ace_cjk' style='width:NaNpx'>纪</span><span
+                    class='ace_cjk' style='width:NaNpx'>人</span><span class='ace_cjk' style='width:NaNpx'>变</span><span
+                    class='ace_cjk' style='width:NaNpx'>保</span><span class='ace_cjk' style='width:NaNpx'>安</span><span
+                    class='ace_cjk' style='width:NaNpx'>来</span><span class='ace_cjk' style='width:NaNpx'>保</span><span
+                    class='ace_cjk' style='width:NaNpx'>护</span>star&#34;</span>);
+</div><div class='ace_line'>    <span class='ace_identifier'>star</span>.<span class='ace_identifier'>sing</span>();
+</div><div class='ace_line'>  }
+</div><div class='ace_line'>}
+</div></div></div></code></pre>
+            <br/>
+            <h3 class="a5_3">JDK8中接口的小知识点</h3>
+            <ol>
+                <li>如果子类（或实现类）继承的父类和实现的接口中声明了同名同参数的默认方法，那么子类在没有重写方法的前提下，默认调用的是父类中的同名同参的方法 ---&gt;
+                    <mark>类优先原则</mark>
+                </li>
+                <li>如果实现类实现了多个接口，而这多个接口中定义了同名同参数的默认方法，那么在实现类没有重写此方法的情况下，报错 ---&gt; 接口冲突，此时需要重写该方法</li>
+                <li>在知识点2中，实现类中重写方法后如何调用不同接口中被重写的同名同参的方法？ ---&gt; 接口.super.method();</li>
+            </ol>
+            <br/>
+            <h3 class="a5_4">内部类</h3>
+            <blockquote>
+                <p>类的内部成员：属性，方法，构造器，代码块，内部类；别学完了都不知道类的内部成员</p>
+            </blockquote>
+            <ol>
+                <li>Java允许将一个类A声明在另一个类B中，则类A就是内部类，类B就是外部类</li>
+                <li>内部类的分类：成员内部类（静态、非静态），局部内部类（方法内、构造器内、代码块内）</li>
+                <li>成员内部类：
+                    <ul>
+                        <li>一方面，作为外部类的信息
+                            <ul>
+                                <li>调用外部类的结构</li>
+                                <li>可以被static修饰</li>
+                            </ul>
+                        </li>
+                        <li>一方面，作为一个类
+                            <ul>
+                                <li>类内可以定义属性、方法、构造器</li>
+                                <li>可以被final修饰</li>
+                                <li>可以被abstract修饰</li>
+                            </ul>
+                        </li>
+                        <li>如何实例化成员内部类
+                            <ul>
+                                <li>静态的
+                                    <ul>
+                                        <li>外部类.内部类 变量名 = new 外部类.内部类();//静态的</li>
+                                    </ul>
+                                </li>
+                                <li>非静态的
+                                    <ul>
+                                        <li>创建外部类对象</li>
+                                        <li>外部类.内部类 变量名 = 外部类对象实例.new 内部类();</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>如何在成员内部类中区分调用外部类的结构
+                            <ul>
+                                <li>属性：外部类.this.属性</li>
+                                <li>方法：外部类.this.方法()</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+                <li>在局部内部类的方法中，如果调用局部外部类所声明的方法中的局部变量，要求此局部变量声明为final
+                    <ul>
+                        <li>JDK7及之前的版本，要求此局部变量显式的声明为final</li>
+                        <li>JDK8及之后的版本，可以省略final的声明</li>
+                    </ul>
+                </li>
+            </ol>
+            </br>
+            <button class="shinydarken" style="cursor:not-allowed">上一页</button>
+            <button class="shinydarken" onclick="window.location.href='index.html'">1</button>
+            <button class="shinydarken" onclick="window.location.href='page2.html'">2</button>
+            <button class="shinydarken" onclick="window.location.href='page3.html'">3</button>
+            <button class="shinydarken" onclick="window.location.href='page4.html'">4</button>
+            <button class="shinydarken" onclick="window.location.href='page2.html'">下一页</button>
+        </article>
+    </div>
+</div>
+<script src="https://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+<script src="js/bootstrap.bundle.min.js"></script>
+<script src="js/sidebar_ifm.js" type="text/javascript" charset="utf-8"></script>
+<script src="js/sidebar_event.js"></script>
+<script>
+    $.ajax({
+        type: "get",
+        url: 'json/data.json',
+        dataType: "json",
+        success: function (result) {
+            var res = eval(result.data);
+            showSideMenu(res);
+        }
+    });
+</script>
+<script language="JavaScript">
+    var caution = false
+
+    function setCookie(name, value, expires, path, domain, secure) {
+        var curCookie = name + "=" + escape(value) + ((expires) ? "; expires=" + expires.toGMTString() : "") + ((path) ?
+            "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") + ((secure) ? "; secure" : "")
+        if (!caution || (name + "=" + escape(value)).length <= 4000)
+            document.cookie = curCookie
+        else if (confirm("Cookie exceeds 4KB and will be cut!"))
+            document.cookie = curCookie
+    }
+
+    function getCookie(name) {
+        var prefix = name + "="
+        var cookieStartIndex = document.cookie.indexOf(prefix)
+        if (cookieStartIndex == -1)
+            return null
+        var cookieEndIndex = document.cookie.indexOf(";", cookieStartIndex + prefix.length)
+        if (cookieEndIndex == -1)
+            cookieEndIndex = document.cookie.length
+        return unescape(document.cookie.substring(cookieStartIndex + prefix.length,
+            cookieEndIndex))
+    }
+
+    function deleteCookie(name, path, domain) {
+        if (getCookie(name)) {
+            document.cookie = name + "=" + ((path) ? "; path=" + path : "") + ((domain) ? "; domain=" + domain : "") +
+                "; expires=Thu, 01-Jan-70 00:00:01 GMT"
+        }
+    }
+
+    function fixDate(date) {
+        var base = new Date(0)
+        var skew = base.getTime()
+        if (skew > 0)
+            date.setTime(date.getTime() - skew)
+    }
+
+    var now = new Date()
+    fixDate(now)
+    now.setTime(now.getTime() + 730 * 24 * 60 * 60 * 1000)
+    var visits = getCookie("counter")
+    if (!visits)
+        visits = 1
+    else
+        visits = parseInt(visits) + 1
+    setCookie("counter", visits, now)
+    document.write("<p style='position:absolute;right:28%; top:8%;'>欢迎您，这是您是第：<span style='color:red'>" + visits +
+        "</span> 次访问小周的码匠笔记</p>")
+    // -->
+</script>
+</body>
+</html>
